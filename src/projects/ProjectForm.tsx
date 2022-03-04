@@ -8,7 +8,7 @@ interface ProjectFormProps {
 }
 
 function ProjectForm({
-                       project: initialProject,
+                       project: initialProject, // assign an alias to the project prop to avoid same name usage with the useState.
                        onCancel,
                        onSave
                      }: ProjectFormProps) {
