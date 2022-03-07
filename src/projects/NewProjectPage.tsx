@@ -13,6 +13,7 @@ const NewProjectPage = () => {
   function saveProject(project: Project) {
     //create async function that saves the data
     // to firebase.
+    //===================
     const createProject = async () => {
       await addDoc(projectCollectionRef, {
         name: project.name,
@@ -24,7 +25,7 @@ const NewProjectPage = () => {
         isActive: project.isActive,
       });
     };
-
+    //========================
     // navigate away from the current page.
     createProject().then(() => {
       return navigate("/");
@@ -33,8 +34,8 @@ const NewProjectPage = () => {
 
   function resetFields() {
     /*
-    Clear all the values of the input field in the page.
-     */
+        Clear all the values of the input field in the page.
+         */
     Array.from(document.querySelectorAll("input")).forEach((input) => {
       input.value = "";
       input.checked = false;
@@ -44,6 +45,7 @@ const NewProjectPage = () => {
       textarea.value = "";
     });
   }
+
   return (
     <div>
       New Project Page

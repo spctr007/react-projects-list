@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { Project } from "./Project";
+import { validateField } from "./ProjectFormFieldValidation";
+import ImageUrlPaths from "./imageUrlPaths";
 
 interface NewProjectFormProps {
   project: Project;
@@ -12,19 +14,21 @@ function NewProjectForm(props: NewProjectFormProps) {
     name: "",
     description: "",
     budget: "",
+    imageUrl: "",
   });
   const [projName, setProjName] = useState("");
   const [projDescription, setProjDescription] = useState("");
   const [projBudget, setProjBudget] = useState("");
-  const [projImageUrl, setProjImageUrl] = useState("");
+  // const [projImageUrl, setProjImageUrl] = useState("");
   const [projIsActive, setProjIsActive] = useState("");
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
+
     props.project.name = projName;
     props.project.description = projDescription;
     props.project.budget = Number(projBudget);
-    props.project.imageUrl = projImageUrl;
+    props.project.imageUrl = ImageUrlPaths[Math.floor(Math.random() * 12) + 1];
     props.project.isActive = Boolean(projIsActive);
     props.project.contractTypeId = Math.floor(Math.random() * 10) + 1;
 
@@ -39,8 +43,12 @@ function NewProjectForm(props: NewProjectFormProps) {
         name="name"
         placeholder="enter name"
         onChange={(event) => {
-          setProjName(event.target.value);
+          setErrors(validateField(event.target.name, event.target.value));
+          if (errors.name.length === 0) {
+            setProjName(event.target.value);
+          }
         }}
+        required
       />
       {errors.name.length > 0 && (
         <div className="card error">
@@ -52,8 +60,12 @@ function NewProjectForm(props: NewProjectFormProps) {
         name="description"
         placeholder="enter description"
         onChange={(event) => {
-          setProjDescription(event.target.value);
+          setErrors(validateField(event.target.name, event.target.value));
+          if (errors.description.length === 0) {
+            setProjDescription(event.target.value);
+          }
         }}
+        required
       />
       {errors.description.length > 0 && (
         <div className="card error">
@@ -66,23 +78,37 @@ function NewProjectForm(props: NewProjectFormProps) {
         name="budget"
         placeholder="enter budget"
         onChange={(event) => {
-          setProjBudget(event.target.value);
+          setErrors(validateField(event.target.name, event.target.value));
+          if (errors.budget.length === 0) {
+            setProjBudget(event.target.value);
+          }
         }}
-      />
-      <label htmlFor="imageUrl">Image URL</label>
-      <input
-        type="text"
-        name="imageUrl"
-        placeholder="enter image url"
-        onChange={(event) => {
-          setProjImageUrl(event.target.value);
-        }}
+        required
       />
       {errors.budget.length > 0 && (
         <div className="card error">
           <p>{errors.budget}</p>
         </div>
       )}
+      {/*<label htmlFor="imageUrl">Image URL</label>*/}
+      {/*<input*/}
+      {/*  type="text"*/}
+      {/*  name="imageUrl"*/}
+      {/*  placeholder="enter image Url"*/}
+      {/*  onChange={(event) => {*/}
+      {/*    setErrors(validateField(event.target.name, event.target.value));*/}
+      {/*    if(errors.imageUrl.length === 0){*/}
+      {/*      setProjImageUrl(event.target.value);*/}
+      {/*    }*/}
+      {/*  }}*/}
+      {/*  required*/}
+      {/*/>*/}
+      {/*{errors.imageUrl.length > 0 && (*/}
+      {/*  <div className="card error">*/}
+      {/*    <p>{errors.imageUrl}</p>*/}
+      {/*  </div>*/}
+      {/*)}*/}
+
       <label htmlFor="isActive">Active?</label>
       <input
         type="checkbox"
