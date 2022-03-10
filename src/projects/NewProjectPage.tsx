@@ -1,5 +1,5 @@
 import { addDoc, collection } from "firebase/firestore";
-import React from "react";
+import React, {SyntheticEvent} from "react";
 import NewProjectForm from "./NewProjectForm";
 import { Project } from "./Project";
 import { db } from "../firebase";
@@ -46,13 +46,19 @@ const NewProjectPage = () => {
     });
   }
 
+  function cancel(event : SyntheticEvent){
+    event.preventDefault();
+    return navigate("/");
+  }
+
   return (
     <div>
       New Project Page
       <NewProjectForm
         project={newProject}
         onSave={saveProject}
-        onCancel={resetFields}
+        onReset={resetFields}
+        onCancel={cancel}
       />
     </div>
   );

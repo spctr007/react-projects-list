@@ -5,7 +5,8 @@ import ImageUrlPaths from "./imageUrlPaths";
 
 interface NewProjectFormProps {
   project: Project;
-  onCancel: () => void;
+  onCancel: (event : SyntheticEvent) => void;
+  onReset: () => void;
   onSave: (project: Project) => void;
 }
 
@@ -124,10 +125,11 @@ function NewProjectForm(props: NewProjectFormProps) {
         <button
           type="button"
           className="bordered medium"
-          onClick={props.onCancel}
+          onClick={props.onReset}
         >
-          Reset
+          Reset Fields
         </button>
+        <button className="secondary bordered medium" onClick={props.onCancel}>Cancel</button>
       </div>
     </form>
   );
