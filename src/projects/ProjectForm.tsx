@@ -1,5 +1,6 @@
-import React, {SyntheticEvent, useState} from 'react';
-import {Project} from "./Project";
+import React, { SyntheticEvent, useState } from "react";
+import { Project } from "./Project";
+import { isValid, validate } from "./ProjectFormFieldValidation";
 
 interface ProjectFormProps {
   project: Project;
@@ -19,9 +20,10 @@ function ProjectForm({
     description: "",
     budget: "",
   });
+
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-    if (!isValid()) return;
+    if (!isValid(errors)) return;
     onSave(project);
   }
 
@@ -53,34 +55,34 @@ function ProjectForm({
     setErrors(() => validate(updatedProject));
   }
 
-  function validate(project: Project) {
-    let errors: any = {name: "", description: "", budget: ""};
-    if (project.name.length === 0) {
-      errors.name = "Name is required.";
-    }
-
-    if (project.name.length > 0 && project.name.length < 3) {
-      errors.name = "Name needs to be at least three(3) characters.";
-    }
-
-    if (project.description.length === 0) {
-      errors.description = "Description is required.";
-    }
-
-    if (project.budget === 0) {
-      errors.budget = "Budget must be more than $0.00";
-    }
-    return errors;
-  }
-
-  function isValid() {
-    return (
-      errors.name.length === 0 &&
-      errors.description.length === 0 &&
-      errors.budget.length === 0
-
-    );
-  }
+  // function validate(project: Project) {
+  //   let errors: any = {name: "", description: "", budget: ""};
+  //   if (project.name.length === 0) {
+  //     errors.name = "Name is required.";
+  //   }
+  //
+  //   if (project.name.length > 0 && project.name.length < 3) {
+  //     errors.name = "Name needs to be at least three(3) characters.";
+  //   }
+  //
+  //   if (project.description.length === 0) {
+  //     errors.description = "Description is required.";
+  //   }
+  //
+  //   if (project.budget === 0) {
+  //     errors.budget = "Budget must be more than $0.00";
+  //   }
+  //   return errors;
+  // }
+  //
+  // function isValid() {
+  //   return (
+  //     errors.name.length === 0 &&
+  //     errors.description.length === 0 &&
+  //     errors.budget.length === 0
+  //
+  //   );
+  // }
 
   return (
     <form className="input-group vertical" onSubmit={handleSubmit}>
@@ -111,7 +113,7 @@ function ProjectForm({
       <div className="input-group">
         <button className="primary bordered medium">Save</button>
         <span/>
-        <button type="button" className="bordered medium" onClick={onCancel}>cancel</button>
+        <button type="button" className="bordered medium" onClick={onCancel}>Cancel</button>
       </div>
     </form>
   );

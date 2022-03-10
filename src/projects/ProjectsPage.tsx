@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
 import ProjectList from "./ProjectList";
 import { Project } from "./Project";
-import { MOCK_PROJECTS_JSON } from "./MockProjectsJson";
-// import {MOCK_PROJECTS_JSON} from "./MockProjectsJson";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const firebaseUrl =
-    "https://react-projects-list-default-rtdb.firebaseio.com/projects.json";
-  // const projectCollectionRef = collection(db, "projects");
+  // const firebaseUrl =
+  //   "https://react-projects-list-default-rtdb.firebaseio.com/projects.json";
   const docRef = collection(db, "projects");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
-
     const firestoreProjects = new Array<Project>();
     const getProjects = async () => {
       const projectDocSnapshot = await getDocs(docRef);
@@ -63,7 +61,7 @@ const ProjectsPage = () => {
     getProjects().catch(console.error);
 
     setLoading(false);
-  }, [docRef]);
+  }, []);
 
   //
   // useEffect(() => {
@@ -86,34 +84,38 @@ const ProjectsPage = () => {
   //     })
   // }, []);
 
-  const saveProject = (project: Project) => {
-    console.log(project);
-    // projectAPI
-    //   .post(project)
-    //   .then((updatedProject) => {
-    //     let updatedProjects = projects.map((p: Project) => {
-    //       return p.id === project.id ? new Project(updatedProject) : p;
-    //     });
-    //     setProjects(updatedProjects);
-    //   })
-    //   .catch((e) => {
-    //     setError(e.message);
-    //   })
-  };
+  // const saveProject = (project: Project) => {
+  //   const projId = String(project.id);
+  //   const document = doc(db, "projects", projId);
+  //
+  //   const updateProject = async () => {
+  //     await updateDoc(document, {
+  //       name: project.name,
+  //       description: project.description,
+  //       budget: project.budget,
+  //       imageUrl: project.imageUrl,
+  //       isActive: project.isActive,
+  //     });
+  //   }
+  //
+  //   updateProject().then(() => {
+  //     console.log("Done Editing.")
+  //   })
+  // };
 
-  function sendData() {
-    fetch(firebaseUrl, {
-      method: "POST",
-      body: JSON.stringify(MOCK_PROJECTS_JSON),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      // the navigate HOOK redirects the current page to
-      // the location/path set in the parameters.
-      console.log(response.statusText);
-    });
-  }
+  // function sendData() {
+  //   fetch(firebaseUrl, {
+  //     method: "POST",
+  //     body: JSON.stringify(MOCK_PROJECTS_JSON),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   }).then((response) => {
+  //     // the navigate HOOK redirects the current page to
+  //     // the location/path set in the parameters.
+  //     console.log(response.statusText);
+  //   });
+  // }
 
   if (loading) {
     return (
@@ -131,13 +133,13 @@ const ProjectsPage = () => {
           <div className="card large error">
             <section>
               <p>
-                <span className="icon-alert inverse "></span> {error}
+                <span className="icon-alert inverse " /> {error}
               </p>
             </section>
           </div>
         </div>
       )}
-      <ProjectList projects={projects} onSave={saveProject} />
+      <ProjectList projects={projects} />
       {/*<button className="tertiary">Send Data</button>*/}
     </div>
   );
