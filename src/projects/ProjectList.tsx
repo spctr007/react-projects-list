@@ -2,16 +2,20 @@ import React, { useState } from "react";
 import { Project } from "./Project";
 import ProjectCard from "./ProjectCard";
 import ProjectForm from "./ProjectForm";
-import { doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import Modal from "../modalComponents/Modal";
+import Backdrop from "../modalComponents/Backdrop";
 
 interface ProjectListProps {
   projects: Project[];
-  // onSave: (project: Project) => void;
+  refreshProjectsPage: (projects: Project[]) => void;
 }
 
-function ProjectList({ projects}: ProjectListProps) {
+function ProjectList(props: ProjectListProps) {
   const [projectBeingEdited, setProjectBeingEdited] = useState({});
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [projectToDelete, setProjectToDelete] = useState(new Project());
 
   function handleEdit(project: Project) {
     setProjectBeingEdited(project);
@@ -34,13 +38,13 @@ function ProjectList({ projects}: ProjectListProps) {
         imageUrl: project.imageUrl,
         isActive: project.isActive,
       });
-    }
+    };
 
     // Need to update the projects list to reflect
     // the latest data from the edited project.
     updateProject().then(() => {
-      projects.map((proj) => {
-        if (proj.id === project.id){
+      props.projects.map((proj) => {
+        if (proj.id === project.id) {
           proj.name = project.name;
           proj.budget = project.budget;
           proj.description = project.description;
@@ -50,13 +54,32 @@ function ProjectList({ projects}: ProjectListProps) {
       });
       setProjectBeingEdited({});
       return;
-    })
+    });
   };
+
+  function deleteProject(project: Project) {
+    const deleteProjectFromFirebase = async () => {
+      const projId = String(project.id);
+      await deleteDoc(doc(db, "projects", projId));
+    };
+
+    deleteProjectFromFirebase().then(() => {
+      let projTemp = props.projects.filter((proj) => proj.id !== project.id);
+      setModalIsOpen(false);
+      props.refreshProjectsPage(projTemp);
+    });
+  }
+
+  function showConfirmationBox(project: Project) {
+    setProjectToDelete(project);
+    setModalIsOpen(true);
+  }
 
   return (
     <div className="cards">
+      {modalIsOpen}
       {/*<ul className="row">*/}
-      {projects.map((project) => (
+      {props.projects.map((project) => (
         <div key={project.id}>
           {project === projectBeingEdited ? (
             <ProjectForm
@@ -65,11 +88,36 @@ function ProjectList({ projects}: ProjectListProps) {
               project={project}
             />
           ) : (
-            <ProjectCard project={project} onEdit={handleEdit} />
+            <ProjectCard
+              project={project}
+              onEdit={handleEdit}
+              onDelete={() => {
+                showConfirmationBox(project);
+              }}
+            />
           )}
         </div>
       ))}
       {/*</ul>*/}
+      {modalIsOpen && (
+        <Modal
+          onCancel={() => {
+            setModalIsOpen(false);
+          }}
+          project={projectToDelete}
+          onConfirm={() => {
+            deleteProject(projectToDelete);
+          }}
+        />
+      )}
+      {modalIsOpen && (
+        <Backdrop
+          onClick={() => {
+            setModalIsOpen(false);
+          }}
+        />
+      )}
+      {modalIsOpen}
     </div>
   );
 }

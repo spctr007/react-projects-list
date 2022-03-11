@@ -3,16 +3,16 @@ import ProjectList from "./ProjectList";
 import { Project } from "./Project";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-import { useNavigate } from "react-router-dom";
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
   // const firebaseUrl =
   //   "https://react-projects-list-default-rtdb.firebaseio.com/projects.json";
   const docRef = collection(db, "projects");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -39,83 +39,10 @@ const ProjectsPage = () => {
       }
     };
 
-    // const getProjects = async () => {
-    //   const q = query(projectCollectionRef);
-    //   const querySnapshot = await getDocs(q);
-    //   querySnapshot.forEach((doc)=>{
-    //     const proj = new Project({
-    //       id : doc.id,
-    //       budget: doc.get("budget"),
-    //       contractSignedOn: doc.get("contractSignedOn"),
-    //       contractTypeId: doc.get("contractTypeId"),
-    //       description: doc.get("description"),
-    //       imageUrl: doc.get("imageUrl"),
-    //       isActive: doc.get("isActive"),
-    //       name: doc.get("name")
-    //     })
-    //     firestoreProjects.push(proj);
-    //     setProjects(firestoreProjects);
-    //   })
-    // }
-
     getProjects().catch(console.error);
 
     setLoading(false);
   }, []);
-
-  //
-  // useEffect(() => {
-  //   setLoading(true);
-  //   axios
-  //     .get(firebaseUrl)
-  //     .then((response) => response.data)
-  //     .then((data) => {
-  //       const projArray = [];
-  //
-  //       for (const key in data) {
-  //         const proj = {
-  //           id: key,
-  //           ...data[key]
-  //         };
-  //         projArray.push(proj);
-  //       }
-  //       setLoading(false);
-  //       setProjects(projArray);
-  //     })
-  // }, []);
-
-  // const saveProject = (project: Project) => {
-  //   const projId = String(project.id);
-  //   const document = doc(db, "projects", projId);
-  //
-  //   const updateProject = async () => {
-  //     await updateDoc(document, {
-  //       name: project.name,
-  //       description: project.description,
-  //       budget: project.budget,
-  //       imageUrl: project.imageUrl,
-  //       isActive: project.isActive,
-  //     });
-  //   }
-  //
-  //   updateProject().then(() => {
-  //     console.log("Done Editing.")
-  //   })
-  // };
-
-  // function sendData() {
-  //   fetch(firebaseUrl, {
-  //     method: "POST",
-  //     body: JSON.stringify(MOCK_PROJECTS_JSON),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   }).then((response) => {
-  //     // the navigate HOOK redirects the current page to
-  //     // the location/path set in the parameters.
-  //     console.log(response.statusText);
-  //   });
-  // }
 
   if (loading) {
     return (
@@ -139,8 +66,7 @@ const ProjectsPage = () => {
           </div>
         </div>
       )}
-      <ProjectList projects={projects} />
-      {/*<button className="tertiary">Send Data</button>*/}
+      <ProjectList projects={projects} refreshProjectsPage={setProjects} />
     </div>
   );
 };
