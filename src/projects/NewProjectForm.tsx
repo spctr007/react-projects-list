@@ -5,7 +5,7 @@ import ImageUrlPaths from "./imageUrlPaths";
 
 interface NewProjectFormProps {
   project: Project;
-  onCancel: (event : SyntheticEvent) => void;
+  onCancel: (event: SyntheticEvent) => void;
   onReset: () => void;
   onSave: (project: Project) => void;
 }
@@ -26,8 +26,8 @@ function NewProjectForm(props: NewProjectFormProps) {
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
 
-    props.project.name = projName;
-    props.project.description = projDescription;
+    props.project.name = projName.trim();
+    props.project.description = projDescription.trim();
     props.project.budget = Number(projBudget);
     props.project.imageUrl = ImageUrlPaths[Math.floor(Math.random() * 12) + 1];
     props.project.isActive = Boolean(projIsActive);
@@ -91,24 +91,6 @@ function NewProjectForm(props: NewProjectFormProps) {
           <p>{errors.budget}</p>
         </div>
       )}
-      {/*<label htmlFor="imageUrl">Image URL</label>*/}
-      {/*<input*/}
-      {/*  type="text"*/}
-      {/*  name="imageUrl"*/}
-      {/*  placeholder="enter image Url"*/}
-      {/*  onChange={(event) => {*/}
-      {/*    setErrors(validateField(event.target.name, event.target.value));*/}
-      {/*    if(errors.imageUrl.length === 0){*/}
-      {/*      setProjImageUrl(event.target.value);*/}
-      {/*    }*/}
-      {/*  }}*/}
-      {/*  required*/}
-      {/*/>*/}
-      {/*{errors.imageUrl.length > 0 && (*/}
-      {/*  <div className="card error">*/}
-      {/*    <p>{errors.imageUrl}</p>*/}
-      {/*  </div>*/}
-      {/*)}*/}
 
       <label htmlFor="isActive">Active?</label>
       <input
@@ -129,7 +111,9 @@ function NewProjectForm(props: NewProjectFormProps) {
         >
           Reset Fields
         </button>
-        <button className="secondary bordered medium" onClick={props.onCancel}>Cancel</button>
+        <button className="secondary bordered medium" onClick={props.onCancel}>
+          Cancel
+        </button>
       </div>
     </form>
   );
