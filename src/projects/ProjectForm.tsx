@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useState } from "react";
 import { Project } from "./Project";
 import { isValid, validate } from "./ProjectFormFieldValidation";
 
-interface ProjectFormProps {
+type ProjectFormProps = {
   project: Project;
   onCancel: () => void;
   onSave: (project: Project) => void;

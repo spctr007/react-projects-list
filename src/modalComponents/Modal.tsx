@@ -1,7 +1,7 @@
 import React from "react";
 import { Project } from "../projects/Project";
 
-interface ModalProps {
+type ModalProps = {
   project?: Project;
   onCancel: () => void;
   onConfirm?: () => void;

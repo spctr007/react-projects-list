@@ -3,7 +3,7 @@ import { Project } from "./Project";
 import { validateField } from "./ProjectFormFieldValidation";
 import ImageUrlPaths from "./imageUrlPaths";
 
-interface NewProjectFormProps {
+type NewProjectFormProps = {
   project: Project;
   onCancel: (event: SyntheticEvent) => void;
   onReset: () => void;

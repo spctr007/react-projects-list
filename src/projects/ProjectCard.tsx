@@ -1,7 +1,7 @@
 import React from "react";
 import { Project } from "./Project";
 
-interface ProjectCardProps {
+type ProjectCardProps = {
   project: Project;
   onEdit: (project: Project) => void;
   onDelete: () => void;

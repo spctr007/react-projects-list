@@ -1,6 +1,6 @@
 import React from "react";
 
-interface BackdropProps {
+type BackdropProps = {
   onClick: () => void;
 }
 

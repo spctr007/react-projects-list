@@ -7,7 +7,7 @@ import { db } from "../firebase";
 import Modal from "../modalComponents/Modal";
 import Backdrop from "../modalComponents/Backdrop";
 
-interface ProjectListProps {
+type ProjectListProps = {
   projects: Project[];
   refreshProjectsPage: (projects: Project[]) => void;
 }
