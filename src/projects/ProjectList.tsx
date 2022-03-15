@@ -71,8 +71,11 @@ function ProjectList(props: ProjectListProps) {
   }
 
   function showConfirmationBox(project: Project) {
-    setProjectToDelete(project);
-    setModalIsOpen(true);
+    return (event : React.MouseEvent) => {
+      setProjectToDelete(project);
+      setModalIsOpen(true);
+      event.preventDefault();
+    }
   }
 
   return (
@@ -91,9 +94,7 @@ function ProjectList(props: ProjectListProps) {
             <ProjectCard
               project={project}
               onEdit={handleEdit}
-              onDelete={() => {
-                showConfirmationBox(project);
-              }}
+              onDelete={showConfirmationBox(project)}
             />
           )}
         </div>

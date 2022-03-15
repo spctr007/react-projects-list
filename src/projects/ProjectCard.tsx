@@ -4,15 +4,18 @@ import { Project } from "./Project";
 type ProjectCardProps = {
   project: Project;
   onEdit: (project: Project) => void;
-  onDelete: () => void;
-}
+  onDelete: (event : React.MouseEvent) => void;
+};
 
 function ProjectCard(props: ProjectCardProps) {
   const { project, onEdit } = props;
 
-  const handleEditClick = (projectBeingEdited: Project) => {
-    onEdit(projectBeingEdited);
-  };
+  function handleEditClick(projectBeingEdited: Project) {
+    return (event: React.MouseEvent) => {
+      event.preventDefault();
+      onEdit(projectBeingEdited);
+    };
+  }
 
   function formatDescription(description: string): string {
     return description.substring(0, 50) + "...";
@@ -27,12 +30,7 @@ function ProjectCard(props: ProjectCardProps) {
         </h5>
         <p>{formatDescription(project.description)}</p>
         <p>Budget : $ {project.budget.toLocaleString()}</p>
-        <button
-          className="bordered"
-          onClick={() => {
-            handleEditClick(project);
-          }}
-        >
+        <button className="bordered" onClick={handleEditClick(project)}>
           <span className="icon-edit" />
           Edit
         </button>
