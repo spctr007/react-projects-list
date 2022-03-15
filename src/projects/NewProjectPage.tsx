@@ -1,12 +1,12 @@
 import { addDoc, collection } from "firebase/firestore";
-import React, {SyntheticEvent} from "react";
+import React, { SyntheticEvent } from "react";
 import NewProjectForm from "./NewProjectForm";
 import { Project } from "./Project";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
+
 const NewProjectPage = () => {
-  const newProject = new Project();
   const projectCollectionRef = collection(db, "projects");
   const navigate = useNavigate();
 
@@ -33,9 +33,7 @@ const NewProjectPage = () => {
   }
 
   function resetFields() {
-    /*
-        Clear all the values of the input field in the page.
-         */
+    // Clears all the values of the input field in the page.
     Array.from(document.querySelectorAll("input")).forEach((input) => {
       input.value = "";
       input.checked = false;
@@ -46,7 +44,7 @@ const NewProjectPage = () => {
     });
   }
 
-  function cancel(event : SyntheticEvent){
+  function cancel(event: SyntheticEvent) {
     event.preventDefault();
     return navigate("/");
   }
@@ -55,7 +53,6 @@ const NewProjectPage = () => {
     <div>
       New Project Page
       <NewProjectForm
-        project={newProject}
         onSave={saveProject}
         onReset={resetFields}
         onCancel={cancel}

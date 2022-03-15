@@ -1,14 +1,13 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, { ChangeEvent, SyntheticEvent, useState } from "react";
 import { Project } from "./Project";
 import { validateField } from "./ProjectFormFieldValidation";
 import ImageUrlPaths from "./imageUrlPaths";
 
 type NewProjectFormProps = {
-  project: Project;
   onCancel: (event: SyntheticEvent) => void;
   onReset: () => void;
   onSave: (project: Project) => void;
-}
+};
 
 function NewProjectForm(props: NewProjectFormProps) {
   const [errors, setErrors] = useState({
@@ -20,35 +19,55 @@ function NewProjectForm(props: NewProjectFormProps) {
   const [projName, setProjName] = useState("");
   const [projDescription, setProjDescription] = useState("");
   const [projBudget, setProjBudget] = useState("");
-  // const [projImageUrl, setProjImageUrl] = useState("");
   const [projIsActive, setProjIsActive] = useState("");
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
 
-    props.project.name = projName.trim();
-    props.project.description = projDescription.trim();
-    props.project.budget = Number(projBudget);
-    props.project.imageUrl = ImageUrlPaths[Math.floor(Math.random() * 12) + 1];
-    props.project.isActive = Boolean(projIsActive);
-    props.project.contractTypeId = Math.floor(Math.random() * 10) + 1;
+    const newProject = new Project();
+    newProject.description = projDescription.trim();
+    newProject.name = projName.trim();
+    newProject.budget = Number(projBudget);
+    newProject.imageUrl = ImageUrlPaths[Math.floor(Math.random() * 12) + 1];
+    newProject.isActive = Boolean(projIsActive);
+    newProject.contractTypeId = Math.floor(Math.random() * 10) + 1;
 
-    props.onSave(props.project);
+    props.onSave(newProject);
   };
 
+  function projectNameOnChange(event: ChangeEvent<HTMLInputElement>) {
+    setErrors(validateField(event.target.name, event.target.value));
+    if (errors.name.length === 0) {
+      setProjName(event.target.value);
+    }
+  }
+
+  function projectDescriptionOnChange(event: ChangeEvent<HTMLTextAreaElement>) {
+    setErrors(validateField(event.target.name, event.target.value));
+    if (errors.name.length === 0) {
+      setProjDescription(event.target.value);
+    }
+  }
+
+  function projectBudgetOnChange(event: ChangeEvent<HTMLInputElement>) {
+    setErrors(validateField(event.target.name, event.target.value));
+    if (errors.name.length === 0) {
+      setProjBudget(event.target.value);
+    }
+  }
+
+  function projectIsActiveOnChange(event: ChangeEvent<HTMLInputElement>) {
+    setProjIsActive(event.target.value);
+  }
+
   return (
-    <form className="input-group vertical" onSubmit={handleSubmit}>
+    <form className="input-group vertical" data-testid="form-submission" onSubmit={handleSubmit}>
       <label htmlFor="name">Project Name</label>
       <input
         type="text"
         name="name"
         placeholder="enter name"
-        onChange={(event) => {
-          setErrors(validateField(event.target.name, event.target.value));
-          if (errors.name.length === 0) {
-            setProjName(event.target.value);
-          }
-        }}
+        onChange={projectNameOnChange}
         required
       />
       {errors.name.length > 0 && (
@@ -60,12 +79,7 @@ function NewProjectForm(props: NewProjectFormProps) {
       <textarea
         name="description"
         placeholder="enter description"
-        onChange={(event) => {
-          setErrors(validateField(event.target.name, event.target.value));
-          if (errors.description.length === 0) {
-            setProjDescription(event.target.value);
-          }
-        }}
+        onChange={projectDescriptionOnChange}
         required
       />
       {errors.description.length > 0 && (
@@ -78,12 +92,7 @@ function NewProjectForm(props: NewProjectFormProps) {
         type="number"
         name="budget"
         placeholder="enter budget"
-        onChange={(event) => {
-          setErrors(validateField(event.target.name, event.target.value));
-          if (errors.budget.length === 0) {
-            setProjBudget(event.target.value);
-          }
-        }}
+        onChange={projectBudgetOnChange}
         required
       />
       {errors.budget.length > 0 && (
@@ -96,22 +105,27 @@ function NewProjectForm(props: NewProjectFormProps) {
       <input
         type="checkbox"
         name="isActive"
-        onChange={(event) => {
-          setProjIsActive(event.target.value);
-        }}
+        onChange={projectIsActiveOnChange}
       />
 
       <div className="input-group">
-        <button className="primary bordered medium">Save</button>
+        <button className="primary bordered medium" data-testid="on-save-button">
+          Save
+        </button>
         <span />
         <button
           type="button"
           className="bordered medium"
           onClick={props.onReset}
+          data-testid="on-reset-fields"
         >
           Reset Fields
         </button>
-        <button className="secondary bordered medium" onClick={props.onCancel}>
+        <button
+          className="secondary bordered medium"
+          data-testid="on-cancel-button"
+          onClick={props.onCancel}
+        >
           Cancel
         </button>
       </div>
