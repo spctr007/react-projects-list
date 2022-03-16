@@ -4,6 +4,7 @@ import NewProjectForm from "./NewProjectForm";
 import { Project } from "./Project";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import ProjectsPage from "./ProjectsPage";
 
 
 const NewProjectPage = () => {
@@ -50,14 +51,26 @@ const NewProjectPage = () => {
   }
 
   return (
-    <div>
-      New Project Page
-      <NewProjectForm
-        onSave={saveProject}
-        onReset={resetFields}
-        onCancel={cancel}
-      />
-    </div>
+      <section className="page-section bg-light" id="portfolio">
+        <div className="container">
+          <div className="text-center">
+            <h2 className="section-heading text-uppercase">New Project Page</h2>
+            <h3 className="section-subheading text-muted">
+              Create your new Project Here.
+            </h3>
+            <div className="row">
+              <div className="card bg-light">
+                <NewProjectForm
+                    onSave={saveProject}
+                    onReset={resetFields}
+                    onCancel={cancel}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
   );
 };
 

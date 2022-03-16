@@ -54,7 +54,7 @@ const ProjectsPage = () => {
   }
 
   return (
-    <div>
+    <section className="page-section bg-light" id="portfolio">
       {error && (
         <div className="row">
           <div className="card large error">
@@ -67,7 +67,7 @@ const ProjectsPage = () => {
         </div>
       )}
       <ProjectList projects={projects} refreshProjectsPage={setProjects} />
-    </div>
+    </section>
   );
 };
 

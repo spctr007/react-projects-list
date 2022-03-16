@@ -79,11 +79,11 @@ function ProjectList(props: ProjectListProps) {
   }
 
   return (
-    <div className="cards">
+    <div className="row">
       {modalIsOpen}
       {/*<ul className="row">*/}
       {props.projects.map((project) => (
-        <div key={project.id}>
+        <div key={project.id} className="col-lg-4 col-sm-6 mb-4">
           {project === projectBeingEdited ? (
             <ProjectForm
               onCancel={cancelEditing}

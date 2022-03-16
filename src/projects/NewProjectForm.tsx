@@ -61,74 +61,87 @@ function NewProjectForm(props: NewProjectFormProps) {
   }
 
   return (
-    <form className="input-group vertical" data-testid="form-submission" onSubmit={handleSubmit}>
-      <label htmlFor="name">Project Name</label>
-      <input
-        type="text"
-        name="name"
-        placeholder="enter name"
-        onChange={projectNameOnChange}
-        required
-      />
-      {errors.name.length > 0 && (
-        <div className="card error">
-          <p>{errors.name}</p>
-        </div>
-      )}
-      <label htmlFor="description">Project Description</label>
-      <textarea
-        name="description"
-        placeholder="enter description"
-        onChange={projectDescriptionOnChange}
-        required
-      />
-      {errors.description.length > 0 && (
-        <div className="card error">
-          <p>{errors.description}</p>
-        </div>
-      )}
-      <label htmlFor="budget">Project Budget</label>
-      <input
-        type="number"
-        name="budget"
-        placeholder="enter budget"
-        onChange={projectBudgetOnChange}
-        required
-      />
-      {errors.budget.length > 0 && (
-        <div className="card error">
-          <p>{errors.budget}</p>
-        </div>
-      )}
-
-      <label htmlFor="isActive">Active?</label>
-      <input
-        type="checkbox"
-        name="isActive"
-        onChange={projectIsActiveOnChange}
-      />
-
-      <div className="input-group">
-        <button className="primary bordered medium" data-testid="on-save-button">
-          Save
-        </button>
-        <span />
-        <button
-          type="button"
-          className="bordered medium"
-          onClick={props.onReset}
-          data-testid="on-reset-fields"
-        >
-          Reset Fields
-        </button>
-        <button
-          className="secondary bordered medium"
-          data-testid="on-cancel-button"
-          onClick={props.onCancel}
-        >
-          Cancel
-        </button>
+    <form className="" data-testid="form-submission" onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label htmlFor="name">Project Name</label>
+        <input
+            className="form-control"
+            type="text"
+            name="name"
+            placeholder="enter name"
+            onChange={projectNameOnChange}
+            required
+        />
+        {errors.name.length > 0 && (
+            <div className="alert alert-danger">
+              <p>{errors.name}</p>
+            </div>
+        )}
       </div>
+      <div className="form-group">
+        <label htmlFor="description">Project Description</label>
+        <textarea
+            className="form-control"
+            name="description"
+            placeholder="enter description"
+            onChange={projectDescriptionOnChange}
+            required
+        />
+        {errors.description.length > 0 && (
+            <div className="alert alert-danger">
+              <p>{errors.description}</p>
+            </div>
+        )}
+        <div className="form-group">
+          <label htmlFor="budget">Project Budget</label>
+          <input
+              className="form-control"
+              type="number"
+              name="budget"
+              placeholder="enter budget"
+              onChange={projectBudgetOnChange}
+              required
+          />
+          {errors.budget.length > 0 && (
+              <div className="alert alert-danger">
+                <p>{errors.budget}</p>
+              </div>
+          )}
+        </div>
+        <div className="form-group">
+          <label htmlFor="isActive">Active?</label>
+          <div className="input-group mb-3">
+                <input
+                    type="checkbox"
+                    name="isActive"
+                    onChange={projectIsActiveOnChange}
+                />
+          </div>
+
+        </div>
+        <div className="form-group">
+          <button className="btn btn-success" data-testid="on-save-button">
+            Save
+          </button>
+          <span />
+          <button
+              type="button"
+              className="btn btn-warning"
+              onClick={props.onReset}
+              data-testid="on-reset-fields"
+          >
+            Reset Fields
+          </button>
+          <button
+              className="btn btn-danger"
+              data-testid="on-cancel-button"
+              onClick={props.onCancel}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+
     </form>
   );
 }
