@@ -1,52 +1,53 @@
 import React from "react";
 
 const TopNavigation = () => {
-  function navScroll() {
-    window.addEventListener("DOMContentLoaded", (event) => {
-      // Navbar shrink function
-      var navbarShrink = function () {
-        const navbarCollapsible = document.body.querySelector("#mainNav");
-        if (!navbarCollapsible) {
-          return;
-        }
-        if (window.scrollY === 0) {
-          navbarCollapsible.classList.remove("navbar-shrink");
-        } else {
-          navbarCollapsible.classList.add("navbar-shrink");
-        }
-      };
-
-      // Shrink the navbar
-      navbarShrink();
-
-      // Shrink the navbar when page is scrolled
-      document.addEventListener("scroll", navbarShrink);
-
-      // Activate Bootstrap scrollspy on the main nav element
-      const mainNav = document.body.querySelector("#mainNav");
-      if (mainNav) {
+  window.addEventListener("DOMContentLoaded", (event) => {
+    // Navbar shrink function
+    var navbarShrink = function () {
+      const navbarCollapsible = document.body.querySelector("#mainNav");
+      if (!navbarCollapsible) {
+        return;
       }
+      if (window.scrollY === 0) {
+        navbarCollapsible.classList.remove("navbar-shrink");
+      } else {
+        navbarCollapsible.classList.add("navbar-shrink");
+      }
+    };
 
-      // Collapse responsive navbar when toggler is visible
-      const navbarToggler = document.body.querySelector(".navbar-toggler");
-      const responsiveNavItems = [].slice.call(
-        document.querySelectorAll("#navbarResponsive .nav-link")
-      );
-      responsiveNavItems.map((responsiveNavItem) => {
+    // Shrink the navbar
+    navbarShrink();
+
+    // Shrink the navbar when page is scrolled
+    window.addEventListener("scroll", navbarShrink);
+
+    // Activate Bootstrap scrollspy on the main nav element
+    const mainNav = document.body.querySelector("#mainNav");
+    if (mainNav) {
+    }
+
+    // Collapse responsive navbar when toggler is visible
+    const navbarToggler = document.body.querySelector(".navbar-toggler");
+    const responsiveNavItems = [].slice.call(
+      document.querySelectorAll("#navbarResponsive .nav-link")
+    );
+    responsiveNavItems.map((responsiveNavItem) => {
+      // @ts-ignore
+      return responsiveNavItem.addEventListener("click", () => {
         // @ts-ignore
-        return responsiveNavItem.addEventListener("click", () => {
+        if (window.getComputedStyle(navbarToggler).display !== "none") {
           // @ts-ignore
-          if (window.getComputedStyle(navbarToggler).display !== "none") {
-            // @ts-ignore
-            navbarToggler.click();
-          }
-        });
+          navbarToggler.click();
+        }
       });
     });
-  }
+  });
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-inverse fixed-top" id="mainNav">
+    <nav
+      className="navbar navbar-expand-lg navbar-inverse fixed-top"
+      id="mainNav"
+    >
       <div className="container">
         <a className="navbar-brand" href="/">
           <img src="assets/img/navbar-logo.svg" alt="..." />
