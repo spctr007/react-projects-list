@@ -4,7 +4,6 @@ import NewProjectForm from "./NewProjectForm";
 import { Project } from "./Project";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import ProjectsPage from "./ProjectsPage";
 
 
 const NewProjectPage = () => {
@@ -59,7 +58,7 @@ const NewProjectPage = () => {
               Create your new Project Here.
             </h3>
             <div className="row">
-              <div className="card bg-light">
+              <div className="card bg-light justify-content-center">
                 <NewProjectForm
                     onSave={saveProject}
                     onReset={resetFields}

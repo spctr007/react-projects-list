@@ -7,6 +7,7 @@ type PortfolioModalProps = {
 
 const PortfolioModal = ({project} : PortfolioModalProps) => {
     const projectName = project.name.replace(/[^A-Za-z]+/g, "");
+
     return (
       <div
         className="portfolio-modal modal fade"

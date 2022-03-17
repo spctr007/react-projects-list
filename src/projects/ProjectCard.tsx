@@ -1,6 +1,5 @@
 import React from "react";
 import { Project } from "./Project";
-import PortfolioModal from "../modalComponents/PortfolioModal";
 
 type ProjectCardProps = {
   project: Project;
@@ -26,14 +25,10 @@ function ProjectCard(props: ProjectCardProps) {
 
   return (
     <div className="portfolio-item">
-      <a
-        className="portfolio-link"
-        data-bs-toggle="modal"
-        href={link}
-      >
+      <a className="portfolio-link" data-bs-toggle="modal" href={link}>
         <div className="portfolio-hover">
           <div className="portfolio-hover-content">
-            <i className="fas fa-plus fa-3x"></i>
+            <i className="fas fa-plus fa-3x" />
           </div>
         </div>
         <img className="img-fluid" src={project.imageUrl} alt={project.name} />
@@ -43,6 +38,24 @@ function ProjectCard(props: ProjectCardProps) {
         <div className="portfolio-caption-subheading text-muted">
           {formatDescription(project.description)}
         </div>
+        <button
+          className="btn btn-outline-secondary me-auto p-1"
+          data-bs-dismiss="modal"
+          type="button"
+          onClick={handleEditClick(project)}
+        >
+          <i className="fas fa-edit me-1" />
+          Edit
+        </button>
+        <button
+          className="btn btn-outline-danger me-auto p-1"
+          data-bs-dismiss="modal"
+          type="button"
+          onClick={props.onDelete}
+        >
+          <i className="fas fa-times me-1" />
+          Delete Project
+        </button>
       </div>
     </div>
   );
