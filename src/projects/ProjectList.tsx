@@ -6,6 +6,7 @@ import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import Modal from "../modalComponents/Modal";
 import Backdrop from "../modalComponents/Backdrop";
+import PortfolioModal from "../modalComponents/PortfolioModal";
 
 type ProjectListProps = {
   projects: Project[];
@@ -97,6 +98,7 @@ function ProjectList(props: ProjectListProps) {
               onDelete={showConfirmationBox(project)}
             />
           )}
+          <PortfolioModal project={project}/>
         </div>
       ))}
       {/*</ul>*/}

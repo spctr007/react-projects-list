@@ -1,5 +1,6 @@
 import React from "react";
 import { Project } from "./Project";
+import PortfolioModal from "../modalComponents/PortfolioModal";
 
 type ProjectCardProps = {
   project: Project;
@@ -9,6 +10,8 @@ type ProjectCardProps = {
 
 function ProjectCard(props: ProjectCardProps) {
   const { project, onEdit } = props;
+  const projectName = project.name.replace(/[^A-Za-z]+/g, "");
+  const link = "#" + projectName;
 
   function handleEditClick(projectBeingEdited: Project) {
     return (event: React.MouseEvent) => {
@@ -26,7 +29,7 @@ function ProjectCard(props: ProjectCardProps) {
       <a
         className="portfolio-link"
         data-bs-toggle="modal"
-        href="#portfolioModal1"
+        href={link}
       >
         <div className="portfolio-hover">
           <div className="portfolio-hover-content">
