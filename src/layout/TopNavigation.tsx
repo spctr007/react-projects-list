@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const TopNavigation = () => {
   window.addEventListener("DOMContentLoaded", (event) => {
@@ -90,6 +91,9 @@ const TopNavigation = () => {
               <a className="nav-link" href="#contact">
                 Contact
               </a>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/login">Login</Link>
             </li>
           </ul>
         </div>

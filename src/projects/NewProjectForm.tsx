@@ -2,6 +2,7 @@ import React, { ChangeEvent, SyntheticEvent, useState } from "react";
 import { Project } from "./Project";
 import { validateField } from "./ProjectFormFieldValidation";
 import ImageUrlPaths from "./imageUrlPaths";
+import LoginNavigation from "../login/LoginNavigation";
 
 type NewProjectFormProps = {
   onCancel: (event: SyntheticEvent) => void;
@@ -61,87 +62,109 @@ function NewProjectForm(props: NewProjectFormProps) {
   }
 
   return (
-    <div className="container justify-content-center col-lg-6 col-sm-8 mb-6">
-      <form data-testid="form-submission" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Project Name</label>
-          <input
-            className="form-control"
-            type="text"
-            name="name"
-            placeholder="enter name"
-            onChange={projectNameOnChange}
-            required
-          />
-          {errors.name.length > 0 && (
-            <div className="alert alert-danger">
-              <p>{errors.name}</p>
-            </div>
-          )}
-        </div>
-        <div className="form-group">
-          <label htmlFor="description">Project Description</label>
-          <textarea
-            className="form-control"
-            name="description"
-            placeholder="enter description"
-            onChange={projectDescriptionOnChange}
-            rows={6}
-            required
-          />
-          {errors.description.length > 0 && (
-            <div className="alert alert-danger">
-              <p>{errors.description}</p>
-            </div>
-          )}
-          <div className="form-group">
-            <label htmlFor="budget">Project Budget</label>
-            <input
-              className="form-control"
-              type="number"
-              name="budget"
-              placeholder="enter budget"
-              onChange={projectBudgetOnChange}
-              required
-            />
-            {errors.budget.length > 0 && (
-              <div className="alert alert-danger">
-                <p>{errors.budget}</p>
+    <div className="bg-dark">
+      <LoginNavigation />
+      <section className="vh-25">
+        <form data-testid="form-submission" onSubmit={handleSubmit}>
+          <div className="container py-5 h-25">
+            <div className="row d-flex justify-content-center align-items-center h-100">
+              <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div className="card shadow-2-strong">
+                  <div className="card-body p-5 text-center">
+                    <h3 className="mb-5">New Project</h3>
+                    <div className="form-outline mb-4">
+                      <label htmlFor="name">Project Name</label>
+                      <input
+                          className="form-control form-control-lg"
+                          type="text"
+                          name="name"
+                          placeholder="enter name"
+                          onChange={projectNameOnChange}
+                          required
+                      />
+                      {errors.name.length > 0 && (
+                          <div className="alert alert-danger">
+                            <p>{errors.name}</p>
+                          </div>
+                      )}
+                    </div>
+                    <div className="form-outline mb-4">
+                      <label htmlFor="description">Project Description</label>
+                      <textarea
+                          className="form-control form-control-lg"
+                          name="description"
+                          placeholder="enter description"
+                          onChange={projectDescriptionOnChange}
+                          rows={6}
+                          required
+                      />
+                      {errors.description.length > 0 && (
+                          <div className="alert alert-danger">
+                            <p>{errors.description}</p>
+                          </div>
+                      )}
+                    </div>
+                    <div className="form-outline mb-4">
+                      <label htmlFor="budget">Project Budget</label>
+                      <input
+                          className="form-control"
+                          type="number"
+                          name="budget"
+                          placeholder="enter budget"
+                          onChange={projectBudgetOnChange}
+                          required
+                      />
+                      {errors.budget.length > 0 && (
+                          <div className="alert alert-danger">
+                            <p>{errors.budget}</p>
+                          </div>
+                      )}
+                    </div>
+                    <div className="form-check d-flex justify-content-start mb-4">
+                      <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="isActive"
+                          onChange={projectIsActiveOnChange}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="isActive"
+                      >
+                        {" "}
+                        Is Active? {" "}
+                      </label>
+                    </div>
+
+                    <div className="form-group">
+                      <button className="btn btn-success" data-testid="on-save-button">
+                        Save
+                      </button>
+                      <span />
+                      <button
+                          type="button"
+                          className="btn btn-warning"
+                          onClick={props.onReset}
+                          data-testid="on-reset-fields"
+                      >
+                        Reset Fields
+                      </button>
+                      <button
+                          className="btn btn-danger"
+                          data-testid="on-cancel-button"
+                          onClick={props.onCancel}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <hr className="my-4" />
+                  </div>
+                </div>
               </div>
-            )}
+            </div>
           </div>
-          <div className="form-check">
-            <label htmlFor="isActive">Active?</label>
-            <input
-              className="form-check-input"
-              type="checkbox"
-              name="isActive"
-              onChange={projectIsActiveOnChange}
-            />
-          </div>
-          <div className="form-group">
-            <button className="btn btn-success" data-testid="on-save-button">
-              Save
-            </button>
-            <span />
-            <button
-              type="button"
-              className="btn btn-warning"
-              onClick={props.onReset}
-              data-testid="on-reset-fields"
-            >
-              Reset Fields
-            </button>
-            <button
-              className="btn btn-danger"
-              data-testid="on-cancel-button"
-              onClick={props.onCancel}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </section>
     </div>
   );
 }
