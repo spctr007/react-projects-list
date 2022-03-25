@@ -2,7 +2,7 @@ import {addDoc, collection} from "firebase/firestore";
 import React, {SyntheticEvent} from "react";
 import NewProjectForm from "./NewProjectForm";
 import {Project} from "./Project";
-import {db} from "../firebase";
+import {db} from "../firebase/firebase";
 import {useNavigate} from "react-router-dom";
 
 
