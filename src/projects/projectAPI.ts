@@ -1,8 +1,8 @@
-import { Project } from './Project';
+import { Project } from "./Project";
+import { firebaseUrl } from "../firebase/firebase";
 
-const baseUrl = 'http://localhost:4000';
+const baseUrl = "http://localhost:4000";
 const url = `${baseUrl}/projects`;
-const firebaseUrl = "https://react-projects-list-default-rtdb.firebaseio.com/projects.json"
 
 function translateStatusToErrorMessage(status: number) {
   switch (status) {
