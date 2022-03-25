@@ -28,7 +28,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "nodemon --exec npm start"
+    "dev": "nodemon -L -e ts,tsx,css,html --watch src --exec npm start"
   },
   "eslintConfig": {
     "extends": [
