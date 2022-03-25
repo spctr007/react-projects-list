@@ -12,5 +12,7 @@ const firebaseConfig = {
     measurementId: "G-KQ09PHL4KZ"
 };
 
+export const firebaseUrl = "https://react-projects-list-default-rtdb.firebaseio.com/projects.json";
+
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
