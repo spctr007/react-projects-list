@@ -3,7 +3,7 @@ import { Project } from "./Project";
 import ProjectCard from "./ProjectCard";
 import ProjectForm from "./ProjectForm";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../firebase/firebase";
 import Modal from "../modalComponents/Modal";
 import Backdrop from "../modalComponents/Backdrop";
 import PortfolioModal from "../modalComponents/PortfolioModal";
