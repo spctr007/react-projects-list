@@ -7,7 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { app } from "../firebase";
+import { app } from "../firebase/firebase";
 
 const SignupPage = () => {
   const auth = getAuth(app);
@@ -93,7 +93,6 @@ const SignupPage = () => {
                     <button
                       className="btn btn-outline-dark"
                       onClick={loginWithGoogle}
-                      role="button"
                     >
                       <img
                         width="20px"

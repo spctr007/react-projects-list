@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import ProjectList from "./ProjectList";
 import { Project } from "./Project";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../firebase/firebase";
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // const firebaseUrl =
-  //   "https://react-projects-list-default-rtdb.firebaseio.com/projects.json";
   const docRef = collection(db, "projects");
   // const navigate = useNavigate();
 
@@ -42,7 +40,7 @@ const ProjectsPage = () => {
     getProjects().catch(console.error);
 
     setLoading(false);
-  }, []);
+  }, [docRef]);
 
   if (loading) {
     return (
