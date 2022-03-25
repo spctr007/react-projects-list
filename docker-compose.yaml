@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  react_ts_project_mgmt:
+    build: ../react-ts-project-mgmt
+    container_name: react_project_mgmt_c
+    ports:
+      - "5000:3000"
+    volumes:
+      - ../react-ts-project-mgmt:/react_ts_project_mgmt
+      - ./react_ts_project_mgmt/node_modules
