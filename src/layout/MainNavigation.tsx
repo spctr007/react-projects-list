@@ -2,7 +2,7 @@ import React from "react";
 
 export default function MainNavigation() {
   return (
-    <header className="masthead">
+    <header className="masthead vh-100">
       <div className="container">
         <div className="masthead-subheading">Welcome To Our Studio!</div>
         <div className="masthead-heading text-uppercase">
